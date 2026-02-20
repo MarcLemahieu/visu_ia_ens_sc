@@ -255,6 +255,11 @@ def change_somme_display(cnv):
 
 
 def reset_weights(cnv, gestion):
+    """
+    remets les poids selon l'initialisation de l'énoncé mais
+    ne change pas le chiffre en cours
+    sert au menu Pondérations dans le sous-menu réinitialiser
+    """
     gestion.weights = weights
     gestion.validated = 0
     gestion.somme = sum([w for w, on in zip(gestion.weights, seven_seg(gestion.digit_to_test))if on]) 
@@ -301,7 +306,16 @@ def ask_weights(cnv: Cadran, gestion:GestionIA)->None:
             break
 
 def callback():
+    """
+    lien vers la licence de l'appli dans la barre de menu
+    """
     webbrowser.open_new(r"https://www.gnu.org/licenses/gpl-3.0.html")
+
+def callcode():
+    """
+    lien vers le github de l'appli dans la barre de menu
+    """
+    webbrowser.open_new(r"https://github.com/MarcLemahieu/visu_ia_ens_sc")
 
 gestion = GestionIA()
 
@@ -325,6 +339,7 @@ menubar.add_cascade(label="Mode", menu=modemenu)
 display = tk.Menu(menubar)
 display.add_command(label="poids actifs",command=lambda:change_somme_display(cnv))
 display.add_command(label="license GPL 3", command= lambda: callback())
+display.add_command(label="source(github)", command= lambda: callcode())
 menubar.add_cascade(label="Affichage", menu=display)
 reset = tk.Menu(menubar)
 reset.add_command(label="réinitialiser", command=lambda:reset_weights(cnv, gestion))
